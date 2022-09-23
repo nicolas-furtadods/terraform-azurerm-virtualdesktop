@@ -1,11 +1,6 @@
 ##########################################################################
 # 0. Global Configuration
 ##########################################################################
-variable "subscription_id" {
-  description = "Resources created for the governance will use this subscription."
-  type        = string
-}
-
 variable "application" {
   description = "Name of the application for which the resources are created (agw,corenet etc.)"
   type        = string
