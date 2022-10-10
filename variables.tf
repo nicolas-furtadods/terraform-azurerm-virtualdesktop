@@ -36,7 +36,7 @@ variable "location" {
 variable "tags" {
   description = "Tags to apply to your resources"
   type        = map(string)
-  default = {}
+  default     = {}
 }
 
 variable "resource_group_name" {
@@ -45,11 +45,50 @@ variable "resource_group_name" {
 }
 
 ##########################################################################
-# 1. Virtual Network Configuration
+# 1. Azure Virtual Desktop
 ##########################################################################
-/*
-variable "subnet_id" {
-  description = "A subnet ID needed to create the gateway resource"
+variable "applications" {
+  description = "Applications Map which will serve as the basis to create the host pool and application."
+  type = map(object({
+    display_name = string
+    virtual_machines = list(object({
+      name = string
+      id   = string
+    }))
+  }))
+}
+
+variable "avd_users" {
+  description = "AVD users. They will be part of a new group."
+  type        = list(string)
+}
+##########################################################################
+# 2. Azure Virtual Desktop - Host Pool
+##########################################################################
+variable "host_pool_properties" {
+  description = "Host Pool properties you may find on Terraform Registry"
+  type        = map(any)
+  default     = {}
+}
+
+variable "expiration_date" {
+  description = "(Required) A valid RFC3339Time for the expiration of the token"
   type        = string
 }
-*/
+##########################################################################
+# 3. Azure Virtual Desktop - Application Group
+##########################################################################
+variable "application_group_properties" {
+  description = "Application group properties you may find on Terraform Registry"
+  type        = map(any)
+  default     = {}
+}
+
+##########################################################################
+# 4. Azure Virtual Desktop - Workspace
+##########################################################################
+variable "workspace_properties" {
+  description = "Workspace properties you may find on Terraform Registry"
+  type        = map(any)
+  default     = {}
+}
